@@ -22,7 +22,7 @@ Summary:           Time series as native data type
 # Starting with Redis 8, RedisTimeSeries is licensed under your choice of:
 # (i) Redis Source Available License 2.0 (RSALv2);
 # (ii) the Server Side Public License v1 (SSPLv1); or
-# (iii) the GNU Affero General Public License version 3 (AGPLv3). 
+# (iii) the GNU Affero General Public License version 3 (AGPLv3).
 # LibMR is AGPL-3.0-only
 # hiredis is BSD-3-Clause
 # libevent is BSD-3-Clause
@@ -35,9 +35,8 @@ Summary:           Time series as native data type
 License:           AGPL-3.0-only AND MIT AND BSD-3-Clause AND Apache-2.0
 URL:               %{forgeurl}
 Source0:           https://github.com/Peter-Sh/redistimeseries-rpm/releases/download/v8.6.0/redistimeseries-8.6.0.tar.gz
-# get full git snapshot with submodules
+Source1:           timeseries.conf
 
-# BuildRequires:    (redis-devel >= 8.5 with redis-devel < 8.7)
 BuildRequires:     make
 BuildRequires:     cmake
 BuildRequires:     automake
@@ -60,8 +59,7 @@ Provides:          bundled(readies)
 Provides:          bundled(dragonbox)
 Provides:          bundled(minunit)
 
-# Requires:          redis(modules_abi)%{?_isa} = %{redis_modules_abi}
-Requires:         (redis >= 8.5 with redis < 8.7)
+Requires:          redis = %{version}
 Supplements:       redis
 
 
@@ -74,10 +72,7 @@ via a single Redis key (similar to any other Redis data structure).
 %setup -q -n %{gh_proj}-%{version}
 
 : Configuration file
-cat << EOF | tee %{cfgname}
-# %{gh_proj}
-loadmodule %{redis_modules_dir}/%{libname}
-EOF
+{ printf '# %{gh_proj}\nloadmodule %{redis_modules_dir}/%{libname}\n\n'; cat %{SOURCE1}; } > %{cfgname}
 
 cp -p deps/LibMR/LICENSE.txt           LICENSE.LibMR              # AGPLv3
 cp -p deps/RedisModulesSDK/LICENSE     LICENSE.RedisModulesSDK    # MIT
