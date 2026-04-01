@@ -15,7 +15,7 @@
 # for EL-8 to avoid TAG usage
 %global archivename      %{gh_proj}-%{version}
 
-Name:              redis-timeseries
+Name:              redistimeseries
 Version:           8.6.0
 Release:           1%{?dist}
 Summary:           Time series as native data type
