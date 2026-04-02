@@ -17,7 +17,7 @@
 
 Name:              redistimeseries
 Version:           8.6.0
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           Time series as native data type
 # Starting with Redis 8, RedisTimeSeries is licensed under your choice of:
 # (i) Redis Source Available License 2.0 (RSALv2);
