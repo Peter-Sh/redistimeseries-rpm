@@ -81,26 +81,31 @@ cp -p deps/readies/LICENSE             LICENSE.readies            # BSD-3-Clause
 cp -p deps/fast_double_parser/LICENSE  LICENSE.fast_double_parser # Apache-2.0
 cp -p deps/LibMR/deps/hiredis/COPYING  LICENSE.hiredis            # BSD-3-Clause
 cp -p deps/LibMR/deps/libevent/LICENSE LICENSE.libevent           # BSD-3-Clause
+chmod 0644 LICENSE.*
 
 
 %build
-%global make_flags	 DEBUG="" VERBOSE=1 LDFLAGS="%{?__global_ldflags}" CFLAGS+="%{optflags} -fPIC"
+%global make_flags  DEBUG="" VERBOSE=1 LDFLAGS="%{?__global_ldflags}" CFLAGS+="%{optflags} -fPIC"
 make %{?_smp_mflags} %{make_flags} build
+
+
+%check
+test -f bin/linux-*-release/%{libname}
 
 
 %install
 install -Dpm755 bin/linux-*-release/%{libname} %{buildroot}%{redis_modules_dir}/%{libname}
-install -Dpm640 %{cfgname}                     %{buildroot}%{redis_modules_cfg}/%{cfgname}
+install -Dpm644 %{cfgname}                     %{buildroot}%{redis_modules_cfg}/%{cfgname}
 
 
 %files
 %license LICENSE.*
 %license licenses/AGPLv3.txt
 %doc *.md
-%attr(0640, redis, root) %config(noreplace) %{redis_modules_cfg}/%{cfgname}
+%attr(0644, root, root) %config(noreplace) %{redis_modules_cfg}/%{cfgname}
 %{redis_modules_dir}/%{libname}
 
 
 %changelog
-* Tue, 31 Mar 2026 Petar Shtuchkin <petar.shtuchkin@redis.com> - 8.6.0
+* Tue Mar 31 2026 Petar Shtuchkin <petar.shtuchkin@redis.com> - 8.6.0-4
 - initial experimental 8.6.0
