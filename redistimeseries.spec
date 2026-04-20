@@ -17,7 +17,7 @@
 
 Name:              redistimeseries
 Version:           8.6.0
-Release:           4%{?dist}
+Release:           5%{?dist}
 Summary:           Time series as native data type
 # Starting with Redis 8, RedisTimeSeries is licensed under your choice of:
 # (i) Redis Source Available License 2.0 (RSALv2);
@@ -107,5 +107,7 @@ install -Dpm644 %{cfgname}                     %{buildroot}%{redis_modules_cfg}/
 
 
 %changelog
+* Mon Apr 20 2026 Petar Shtuchkin <petar.shtuchkin@redis.com> - 8.6.0-5
+- Fixed lint
 * Tue Mar 31 2026 Petar Shtuchkin <petar.shtuchkin@redis.com> - 8.6.0-4
 - initial experimental 8.6.0
