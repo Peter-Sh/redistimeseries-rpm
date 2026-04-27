@@ -112,6 +112,9 @@ install -Dpm644 %{cfgname}                     %{buildroot}%{redis_modules_cfg}/
 
 
 %changelog
+* Mon Apr 27 2026 Petar Shtuchkin <petar.shtuchkin@redis.com> - 8.6.0-7
+- Tidy up licenses
+- Add makesrc.sh to create source tarball
 * Mon Apr 20 2026 Petar Shtuchkin <petar.shtuchkin@redis.com> - 8.6.0-5
 - Fixed lint
 * Tue Mar 31 2026 Petar Shtuchkin <petar.shtuchkin@redis.com> - 8.6.0-4
