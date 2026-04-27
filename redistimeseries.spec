@@ -19,20 +19,19 @@ Name:              redistimeseries
 Version:           8.6.0
 Release:           5%{?dist}
 Summary:           Time series as native data type
-# Starting with Redis 8, RedisTimeSeries is licensed under your choice of:
+# Starting with Redis 8, RedisTimeSeries and LibMR are licensed under your choice of:
 # (i) Redis Source Available License 2.0 (RSALv2);
 # (ii) the Server Side Public License v1 (SSPLv1); or
 # (iii) the GNU Affero General Public License version 3 (AGPLv3).
-# LibMR is AGPL-3.0-only
 # hiredis is BSD-3-Clause
 # libevent is BSD-3-Clause
 # RedisModulesSDK is MIT
 # readies is BSD-3-Clause
 # cpu_features is Apache-2.0
-# dragonbox is Apache-2.0
+# dragonbox is Apache-2.0 With LLVM-exception
 # fast_double_parser is Apache-2.0
 # minunit is MIT
-License:           AGPL-3.0-only AND MIT AND BSD-3-Clause AND Apache-2.0
+License:           AGPL-3.0-only AND MIT AND BSD-3-Clause AND Apache-2.0 AND Apache-2.0 WITH LLVM-exception
 URL:               %{forgeurl}
 Source0:           https://github.com/Peter-Sh/redistimeseries-rpm/releases/download/v8.6.0/redistimeseries-8.6.0.tar.gz
 Source1:           timeseries.conf
@@ -74,7 +73,6 @@ via a single Redis key (similar to any other Redis data structure).
 : Configuration file
 { printf '# %{gh_proj}\nloadmodule %{redis_modules_dir}/%{libname}\n\n'; cat %{SOURCE1}; } > %{cfgname}
 
-cp -p deps/LibMR/LICENSE.txt           LICENSE.LibMR              # AGPLv3
 cp -p deps/RedisModulesSDK/LICENSE     LICENSE.RedisModulesSDK    # MIT
 cp -p deps/cpu_features/LICENSE        LICENSE.cpu_features       # Apache-2.0
 cp -p deps/readies/LICENSE             LICENSE.readies            # BSD-3-Clause
@@ -99,8 +97,15 @@ install -Dpm644 %{cfgname}                     %{buildroot}%{redis_modules_cfg}/
 
 
 %files
-%license LICENSE.*
+%license LICENSE.txt
 %license licenses/AGPLv3.txt
+%license LICENSE.RedisModulesSDK
+%license LICENSE.cpu_features
+%license LICENSE.readies
+%license LICENSE.fast_double_parser
+%license LICENSE.hiredis
+%license LICENSE.libevent
+
 %doc *.md
 %attr(0644, root, root) %config(noreplace) %{redis_modules_cfg}/%{cfgname}
 %{redis_modules_dir}/%{libname}
